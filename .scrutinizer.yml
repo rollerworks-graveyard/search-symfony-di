@@ -3,7 +3,7 @@ filter:
         - 'vendor/*'
         - 'doc/*'
         - 'bin/*'
-        - 'tests/*'
+        - 'spec/*'
 
 tools:
     php_changetracking:
@@ -40,7 +40,7 @@ tools:
             - bin
             - vendor
             - doc
-            - tests
+            - spec
 
     # PHP CS Fixer (http://http://cs.sensiolabs.org/).
     php_cs_fixer:
@@ -71,7 +71,7 @@ tools:
             - bin
             - vendor
             - doc
-            - tests
+            - spec
 
     # PHP Mess Detector (http://phpmd.org).
     php_mess_detector:
@@ -104,7 +104,7 @@ tools:
             - bin
             - vendor
             - doc
-            - tests
+            - spec
 
     # Runs Scrutinizer's PHP Analyzer Tool
     php_analyzer:
