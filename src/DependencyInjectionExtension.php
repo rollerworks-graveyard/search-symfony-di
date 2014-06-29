@@ -30,25 +30,25 @@ class DependencyInjectionExtension implements SearchExtensionInterface
     /**
      * @var string[]
      */
-    private $typeServiceIds = array();
+    private $types = array();
 
     /**
      * @var array[]
      */
-    private $typeExtensionServiceIds = array();
+    private $typeExtensions = array();
 
     /**
      * Constructor.
      *
-     * @param ContainerInterface $container
-     * @param string[]           $typeServiceIds
-     * @param array[]            $typeExtensionServiceIds
+     * @param ContainerInterface $container      Symfony services container object
+     * @param string[]           $types          field-type service-ids (type => service-id )
+     * @param array[]            $typeExtensions field-type extension service-ids (type => [[service-ids])
      */
-    public function __construct(ContainerInterface $container, array $typeServiceIds, array $typeExtensionServiceIds)
+    public function __construct(ContainerInterface $container, array $types, array $typeExtensions)
     {
         $this->container = $container;
-        $this->typeServiceIds = $typeServiceIds;
-        $this->typeExtensionServiceIds = $typeExtensionServiceIds;
+        $this->types = $types;
+        $this->typeExtensions = $typeExtensions;
     }
 
     /**
@@ -56,20 +56,20 @@ class DependencyInjectionExtension implements SearchExtensionInterface
      */
     public function getType($name)
     {
-        if (!isset($this->typeServiceIds[$name])) {
+        if (!isset($this->types[$name])) {
             throw new InvalidArgumentException(
                 sprintf('The field type "%s" is not registered with the service container.', $name)
             );
         }
 
-        $type = $this->container->get($this->typeServiceIds[$name]);
+        $type = $this->container->get($this->types[$name]);
 
         if ($type->getName() !== $name) {
             throw new InvalidArgumentException(
                 sprintf(
                     'The type name specified for the service "%s" does not match the actual name.'.
                     'Expected "%s", given "%s"',
-                    $this->typeServiceIds[$name],
+                    $this->types[$name],
                     $name,
                     $type->getName()
                 )
@@ -84,7 +84,7 @@ class DependencyInjectionExtension implements SearchExtensionInterface
      */
     public function hasType($name)
     {
-        return isset($this->typeServiceIds[$name]);
+        return isset($this->types[$name]);
     }
 
     /**
@@ -94,8 +94,8 @@ class DependencyInjectionExtension implements SearchExtensionInterface
     {
         $extensions = array();
 
-        if (isset($this->typeExtensionServiceIds[$name])) {
-            foreach ($this->typeExtensionServiceIds[$name] as $serviceId) {
+        if (isset($this->typeExtensions[$name])) {
+            foreach ($this->typeExtensions[$name] as $serviceId) {
                 $extensions[] = $this->container->get($serviceId);
             }
         }
@@ -108,6 +108,6 @@ class DependencyInjectionExtension implements SearchExtensionInterface
      */
     public function hasTypeExtensions($name)
     {
-        return isset($this->typeExtensionServiceIds[$name]);
+        return isset($this->typeExtensions[$name]);
     }
 }
