@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the RollerworksSearchBundle package.
+ * This file is part of the RollerworksSearch Component package.
  *
  * (c) 2014 Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\SearchBundle\DependencyInjection\Factory;
+namespace Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Factory;
 
 use Rollerworks\Component\Search\Metadata\MetadataReaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -18,8 +18,8 @@ use Symfony\Component\DependencyInjection\Definition;
 /**
  * FieldSetFactory, provides registering FieldSets as services.
  *
- * FieldSets must be provided as `Rollerworks\Bundle\SearchBundle\DependencyInjection\Factory\FieldSet` objects.
- * Passing a 'real' FieldSet, is not possible as options may return
+ * FieldSets must be provided as `Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Factory\FieldSet`
+ * objects. Passing a 'real' FieldSet, is not possible as options may return
  * a none exportable value, like a closure.
  *
  * @author Sebastiaan Stok <s.stok@rollerscapes.net>
@@ -87,6 +87,7 @@ class FieldSetFactory
                 $fieldDef->setFactoryMethod('createField');
             }
 
+            $fieldDef->addArgument($name);
             $fieldDef->addArgument($field['type']);
             $fieldDef->addArgument($field['options']);
             $fieldDef->addArgument($field['required']);

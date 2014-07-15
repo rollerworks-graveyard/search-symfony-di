@@ -20,7 +20,7 @@
                 <argument type="service" id="rollerworks_search.alias_resolver.chain" />
             </call>
         </service>
-        <service id="rollerworks_search.input.filter_query" class="Rollerworks\Component\Search\Input\FilterQuery" parent="rollerworks_search.input_abstract">
+        <service id="rollerworks_search.input.filter_query" class="Rollerworks\Component\Search\Input\FilterQueryInput" parent="rollerworks_search.input_abstract">
             <tag name="rollerworks_search.input_processor" alias="filter_query" />
         </service>
         <service id="rollerworks_search.input.array" class="Rollerworks\Component\Search\Input\ArrayInput" parent="rollerworks_search.input_abstract">

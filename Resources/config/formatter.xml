@@ -10,17 +10,17 @@
         <service id="rollerworks_search.formatter.transformer" class="Rollerworks\Component\Search\Formatter\TransformFormatter">
             <tag name="rollerworks_search.formatter" priority="1000"/>
         </service>
-        <service id="rollerworks_search.formatter.validator" class="Rollerworks\Component\Search\Formatter\ValidationFormatter">
+<!--        <service id="rollerworks_search.formatter.validator" class="Rollerworks\Component\Search\Formatter\ValidationFormatter">
             <tag name="rollerworks_search.formatter" priority="800"/>
             <argument type="service" id="validator" />
-        </service>
-        <service id="rollerworks_search.formatter.duplicate_remove" class="Rollerworks\Component\SearchFormatter\DuplicateRemover" public="false">
+        </service>-->
+        <service id="rollerworks_search.formatter.duplicate_remove" class="Rollerworks\Component\Search\Formatter\DuplicateRemover" public="false">
             <tag name="rollerworks_search.formatter" priority="500"/>
         </service>
-        <service id="rollerworks_search.formatter.values_to_range" class="Rollerworks\Component\SearchFormatter\ValuesToRange" public="false">
+        <service id="rollerworks_search.formatter.values_to_range" class="Rollerworks\Component\Search\Formatter\ValuesToRange" public="false">
             <tag name="rollerworks_search.formatter" priority="300"/>
         </service>
-        <service id="rollerworks_search.formatter.range_optimizer" class="Rollerworks\Component\SearchFormatter\RangeOptimizer" public="false">
+        <service id="rollerworks_search.formatter.range_optimizer" class="Rollerworks\Component\Search\Formatter\RangeOptimizer" public="false">
             <tag name="rollerworks_search.formatter" priority="100"/>
         </service>
     </services>

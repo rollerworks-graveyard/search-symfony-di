@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of the RollerworksSearchBundle package.
+ * This file is part of the RollerworksSearch Component package.
  *
  * (c) 2014 Sebastiaan Stok <s.stok@rollerscapes.net>
  *
@@ -9,7 +9,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace Rollerworks\Bundle\SearchBundle\DependencyInjection\Factory;
+namespace Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Factory;
 
 /**
  * FieldSet keeps the configuration for registering a 'real' fieldset

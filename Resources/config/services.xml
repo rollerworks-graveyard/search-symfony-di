@@ -52,8 +52,8 @@
             <argument type="collection" />
         </service>
 
-        <service id="rollerworks_search.alias_resolver.chain" class="%rollerworks_search.alias_resolver.chain.class%">
-            <argument type="collection" />
-        </service>
+        <!--<service id="rollerworks_search.alias_resolver.chain" class="%rollerworks_search.alias_resolver.chain.class%">-->
+            <!--<argument type="collection" />-->
+        <!--</service>-->
     </services>
 </container>
