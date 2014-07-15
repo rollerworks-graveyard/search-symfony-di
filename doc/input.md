@@ -27,3 +27,16 @@ which returns a new `Rollerworks\Component\Search\InputProcessorInterface` insta
 // create() expects the exporter alias or service-id
 $exporter = $container->get('rollerworks_search.exporter_factory')->create('filter_query');
 ```
+
+## Loading bundled input processors
+
+You can load the bundled input processors by importing the 'input_processor.xml'
+service-definition file from this package.
+
+```php
+use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\ServiceLoader;
+
+$serviceLoader = new ServiceLoader($container);
+$serviceLoader->loadFile('services'); // this ensures the required core services are registered
+$serviceLoader->loadFile('input_processor');
+```
