@@ -172,7 +172,7 @@ class FieldSetBuilder
         }
 
         foreach ($metadata as $property => $field) {
-            if (!$this->includeField($field->fieldName, $include, $exclude)) {
+            if (!$this->isFieldAccepted($field->fieldName, $include, $exclude)) {
                 continue;
             }
 
@@ -220,7 +220,7 @@ class FieldSetBuilder
      *
      * @return bool
      */
-    protected function includeField($field, $include = array(), $exclude = array())
+    protected function isFieldAccepted($field, $include = array(), $exclude = array())
     {
         if ($include) {
             return in_array($field, $include, true);
