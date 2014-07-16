@@ -15,6 +15,7 @@ use Rollerworks\Component\Search\Exception\BadMethodCallException;
 use Rollerworks\Component\Search\Exception\InvalidArgumentException;
 use Rollerworks\Component\Search\Exception\UnexpectedTypeException;
 use Rollerworks\Component\Search\Metadata\MetadataReaderInterface;
+use Rollerworks\Component\Search\Metadata\NullMetadataReader;
 
 /**
  * A builder for creating FieldSet instances.
@@ -47,7 +48,7 @@ class FieldSetBuilder
     public function __construct($name, MetadataReaderInterface $mappingReader = null)
     {
         $this->name = $name;
-        $this->mappingReader = $mappingReader;
+        $this->mappingReader = $mappingReader ?: new NullMetadataReader();
     }
 
     /**
@@ -146,7 +147,8 @@ class FieldSetBuilder
     /**
      * Imports the search fields using the mapping-data of a class.
      *
-     * Mapping Data is provided using the MappingReader (which must be configured using the constructor).
+     * Mapping Data is provided using the MappingReader.
+     * When no metadata is found an exception gets thrown.
      *
      * Note. you can only use include or exclude, not both.
      * Use the field-name, not the property-name!
@@ -157,21 +159,20 @@ class FieldSetBuilder
      *
      * @return self
      *
-     * @throws BadMethodCallException when there is no MappingReader set
+     * @throws \RuntimeException when there is no MappingReader set
      */
     public function importFromClass($class, array $include = array(), array $exclude = array())
     {
-        if (!$this->mappingReader) {
-            throw new BadMethodCallException(
-                'FieldSetBuilder is unable to import configuration from class because no MappingReader is set.'
+        $metadata = $this->mappingReader->getSearchFields($class);
+
+        if (!$metadata) {
+            throw new \RuntimeException(
+                sprintf('FieldSetBuilder is unable to import metadata from "%s", no metadata was found.', $class)
             );
         }
 
-        $metadata = $this->mappingReader->getSearchFields($class);
         foreach ($metadata as $property => $field) {
-            if (($include && !in_array($field->fieldName, $include)) xor
-                ($exclude && in_array($field->fieldName, $exclude))
-            ) {
+            if (!$this->includeField($field->fieldName, $include, $exclude)) {
                 continue;
             }
 
@@ -208,5 +209,27 @@ class FieldSetBuilder
         }
 
         return $fieldSet;
+    }
+
+    /**
+     * Must the field be included in the import process.
+     *
+     * @param string $field
+     * @param array  $include
+     * @param array  $exclude
+     *
+     * @return bool
+     */
+    protected function includeField($field, $include = array(), $exclude = array())
+    {
+        if ($include) {
+            return in_array($field, $include, true);
+        }
+
+        if ($exclude) {
+            return !in_array($field, $exclude, true);
+        }
+
+        return true;
     }
 }
