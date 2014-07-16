@@ -13,6 +13,8 @@ namespace Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Com
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Adds all services with the tags "rollerworks_search.type" and "rollerworks_search.type_extension" as
@@ -33,18 +35,42 @@ class ExtensionPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('rollerworks_search.extension');
 
-        // Builds an array with service IDs as keys and tag aliases as values
+        $this->processExtensions($container);
+        $this->processTypes($definition, $container);
+        $this->processTypeExtensions($definition, $container);
+    }
+
+    private function processExtensions(ContainerBuilder $container)
+    {
+        if (!$container->hasDefinition('rollerworks_search.registry')) {
+            return;
+        }
+
+        $definition = $container->getDefinition('rollerworks_search.registry');
+        $extensions = $definition->getArgument(0);
+
+        foreach (array_keys($container->findTaggedServiceIds('rollerworks_search.extension')) as $serviceId) {
+            $extensions[] = new Reference($serviceId);
+        }
+
+        $definition->replaceArgument(0, $extensions);
+    }
+
+    private function processTypes(Definition $definition, ContainerBuilder $container)
+    {
         $types = array();
 
         foreach ($container->findTaggedServiceIds('rollerworks_search.type') as $serviceId => $tag) {
             $alias = isset($tag[0]['alias']) ? $tag[0]['alias'] : $serviceId;
-
             // Flip, because we want tag aliases (= type identifiers) as keys
             $types[$alias] = $serviceId;
         }
 
         $definition->replaceArgument(1, $types);
+    }
 
+    private function processTypeExtensions(Definition $definition, ContainerBuilder $container)
+    {
         $typeExtensions = array();
 
         foreach ($container->findTaggedServiceIds('rollerworks_search.type_extension') as $serviceId => $tag) {

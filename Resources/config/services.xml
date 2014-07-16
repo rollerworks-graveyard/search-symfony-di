@@ -30,6 +30,7 @@
                 We don't need to be able to add more extensions.
                 * more types can be registered with the rollerworks_search.type tag
                 * more type extensions can be registered with the rollerworks_search.type_extension tag
+                * other extensions can be registered with the rollerworks_search.extension tag
                 -->
                 <argument type="service" id="rollerworks_search.extension" />
             </argument>

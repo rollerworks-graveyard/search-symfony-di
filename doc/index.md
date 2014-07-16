@@ -50,9 +50,9 @@ $serviceLoader->loadFile('services');
 
 ### Registering extensions
 
-**Note:** Its advised to always register types in the ContainerBuilder
-so they can be loaded lazily, only register search extensions when lazy
-loading is not possible.
+**Note:** Its advised to always register types (and type extensions) in
+the ContainerBuilder so they can be loaded lazily, only register search
+extensions when separate loading is not possible.
 
 ```php
 $container
