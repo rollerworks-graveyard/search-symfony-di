@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "rollerworks/search": "dev-package-split",
+        "rollerworks/search": ">=1.0.0-beta3@dev",
         "symfony/dependency-injection": "~2.1",
         "symfony/config": "~2.2"
     },
