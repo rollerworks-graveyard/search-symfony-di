@@ -16,12 +16,16 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "rollerworks/search": ">=1.0.0-beta3@dev",
-        "symfony/dependency-injection": "~2.1"
+        "rollerworks/search": "dev-package-split",
+        "symfony/dependency-injection": "~2.1",
+        "symfony/config": "~2.2"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.1@dev",
-        "phpspec/prophecy": "~1.1@dev"
+        "phpspec/prophecy": "~1.1@dev",
+        "phpunit/phpunit": "~3.7",
+        "matthiasnoback/symfony-dependency-injection-test": "0.*",
+        "matthiasnoback/symfony-service-definition-validator": "~1.1"
     },
     "autoload": {
         "psr-4": {

@@ -1,0 +1,114 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="rollerworks_search.resolved_type_factory.class">Rollerworks\Component\Search\ResolvedFieldTypeFactory</parameter>
+        <parameter key="rollerworks_search.registry.class">Rollerworks\Component\Search\FieldRegistry</parameter>
+        <parameter key="rollerworks_search.factory.class">Rollerworks\Component\Search\SearchFactory</parameter>
+        <parameter key="rollerworks_search.extension.class">Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\DependencyInjectionExtension</parameter>
+        <parameter key="rollerworks_search.fieldset_registry.class">Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\FieldSetRegistry</parameter>
+    </parameters>
+
+    <services>
+        <!-- ResolvedFormTypeFactory -->
+        <service id="rollerworks_search.resolved_type_factory" class="%rollerworks_search.resolved_type_factory.class%" />
+
+        <!-- FieldSetRegistry -->
+        <service id="rollerworks_search.fieldset_registry" class="%rollerworks_search.fieldset_registry.class%">
+            <argument id="service_container" type="service" />
+            <argument type="collection" />
+        </service>
+
+        <!-- SearchRegistry -->
+        <service id="rollerworks_search.registry" class="%rollerworks_search.registry.class%">
+            <argument type="collection">
+                <!--
+                We don't need to be able to add more extensions.
+                * more types can be registered with the rollerworks_search.type tag
+                * more type extensions can be registered with the rollerworks_search.type_extension tag
+                -->
+                <argument type="service" id="rollerworks_search.extension" />
+            </argument>
+            <argument type="service" id="rollerworks_search.resolved_type_factory" />
+        </service>
+
+        <!-- SearchFactory -->
+        <service id="rollerworks_search.factory" class="%rollerworks_search.factory.class%">
+            <argument type="service" id="rollerworks_search.registry" />
+            <argument type="service" id="rollerworks_search.resolved_type_factory" />
+            <argument type="service" id="rollerworks_search.metadata_factory" on-invalid="null" />
+        </service>
+
+        <!-- DependencyInjectionExtension -->
+        <service id="rollerworks_search.extension" class="%rollerworks_search.extension.class%" public="false">
+            <argument type="service" id="service_container" />
+            <!-- All services with tag "rollerworks_search.type" are inserted here by ExtensionPass -->
+            <argument type="collection" />
+            <!-- All services with tag "rollerworks_search.type_extension" are inserted here by ExtensionPass -->
+            <argument type="collection" />
+        </service>
+
+        <!-- CoreExtension -->
+        <service id="rollerworks_search.value_comparison.simple" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\SimpleValueComparison" public="false" />
+        <service id="rollerworks_search.value_comparison.date_time" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\DateTimeValueComparison" public="false" />
+        <service id="rollerworks_search.value_comparison.number" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\NumberValueComparison" public="false" />
+        <service id="rollerworks_search.value_comparison.birthday" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\BirthdayValueComparison" public="false" />
+        <service id="rollerworks_search.value_comparison.money" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\MoneyValueComparison" public="false" />
+        <service id="rollerworks_search.type.field" class="Rollerworks\Component\Search\Extension\Core\Type\FieldType">
+            <tag name="rollerworks_search.type" alias="field" />
+            <argument type="service" id="rollerworks_search.value_comparison.simple" />
+        </service>
+        <service id="rollerworks_search.type.date" class="Rollerworks\Component\Search\Extension\Core\Type\DateType">
+            <tag name="rollerworks_search.type" alias="date" />
+            <argument type="service" id="rollerworks_search.value_comparison.date_time" />
+        </service>
+        <service id="rollerworks_search.type.datetime" class="Rollerworks\Component\Search\Extension\Core\Type\DateTimeType">
+            <tag name="rollerworks_search.type" alias="datetime" />
+            <argument type="service" id="rollerworks_search.value_comparison.date_time" />
+        </service>
+        <service id="rollerworks_search.type.time" class="Rollerworks\Component\Search\Extension\Core\Type\TimeType">
+            <tag name="rollerworks_search.type" alias="time" />
+            <argument type="service" id="rollerworks_search.value_comparison.date_time" />
+        </service>
+        <service id="rollerworks_search.type.birthday" class="Rollerworks\Component\Search\Extension\Core\Type\BirthdayType">
+            <tag name="rollerworks_search.type" alias="birthday" />
+            <argument type="service" id="rollerworks_search.value_comparison.birthday" />
+        </service>
+        <service id="rollerworks_search.type.choice" class="Rollerworks\Component\Search\Extension\Core\Type\ChoiceType">
+            <tag name="rollerworks_search.type" alias="choice" />
+        </service>
+        <service id="rollerworks_search.type.country" class="Rollerworks\Component\Search\Extension\Core\Type\CountryType">
+            <tag name="rollerworks_search.type" alias="country" />
+        </service>
+        <service id="rollerworks_search.type.integer" class="Rollerworks\Component\Search\Extension\Core\Type\IntegerType">
+            <tag name="rollerworks_search.type" alias="integer" />
+            <argument type="service" id="rollerworks_search.value_comparison.number" />
+        </service>
+        <service id="rollerworks_search.type.language" class="Rollerworks\Component\Search\Extension\Core\Type\LanguageType">
+            <tag name="rollerworks_search.type" alias="language" />
+        </service>
+        <service id="rollerworks_search.type.locale" class="Rollerworks\Component\Search\Extension\Core\Type\LocaleType">
+            <tag name="rollerworks_search.type" alias="locale" />
+        </service>
+        <service id="rollerworks_search.type.money" class="Rollerworks\Component\Search\Extension\Core\Type\MoneyType">
+            <tag name="rollerworks_search.type" alias="money" />
+            <argument type="service" id="rollerworks_search.value_comparison.money" />
+        </service>
+        <service id="rollerworks_search.type.number" class="Rollerworks\Component\Search\Extension\Core\Type\NumberType">
+            <tag name="rollerworks_search.type" alias="number" />
+            <argument type="service" id="rollerworks_search.value_comparison.number" />
+        </service>
+        <service id="rollerworks_search.type.text" class="Rollerworks\Component\Search\Extension\Core\Type\TextType">
+            <tag name="rollerworks_search.type" alias="text" />
+        </service>
+        <service id="rollerworks_search.type.timezone" class="Rollerworks\Component\Search\Extension\Core\Type\TimezoneType">
+            <tag name="rollerworks_search.type" alias="timezone" />
+        </service>
+        <service id="rollerworks_search.type.currency" class="Rollerworks\Component\Search\Extension\Core\Type\CurrencyType">
+            <tag name="rollerworks_search.type" alias="currency" />
+        </service>
+    </services>
+</container>
