@@ -171,7 +171,7 @@ class FieldSetBuilder
             );
         }
 
-        foreach ($metadata as $property => $field) {
+        foreach ($metadata as $field) {
             if (!$this->isFieldAccepted($field->fieldName, $include, $exclude)) {
                 continue;
             }
@@ -180,8 +180,8 @@ class FieldSetBuilder
                 'type' => $field->type,
                 'options' => $field->options,
                 'required' => $field->required,
-                'class' => $class,
-                'property' => $property
+                'class' => $field->class,
+                'property' => $field->property
             );
         }
 

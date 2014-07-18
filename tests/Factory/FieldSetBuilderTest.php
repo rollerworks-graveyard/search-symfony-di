@@ -91,7 +91,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
 
         $fields = array(
             'id' => new SearchField('id', $class, 'id', true, 'integer'),
-            'name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
+            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
         );
 
         $this->metadataReader
@@ -116,7 +116,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
 
         $fields = array(
             'id' => new SearchField('id', $class, 'id', true, 'integer'),
-            'name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
+            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
         );
 
         $this->metadataReader
@@ -141,7 +141,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
 
         $fields = array(
             'id' => new SearchField('id', $class, 'id', true, 'integer'),
-            'name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
+            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
         );
 
         $this->metadataReader
