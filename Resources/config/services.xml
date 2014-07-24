@@ -8,7 +8,7 @@
         <parameter key="rollerworks_search.resolved_type_factory.class">Rollerworks\Component\Search\ResolvedFieldTypeFactory</parameter>
         <parameter key="rollerworks_search.registry.class">Rollerworks\Component\Search\FieldRegistry</parameter>
         <parameter key="rollerworks_search.factory.class">Rollerworks\Component\Search\SearchFactory</parameter>
-        <parameter key="rollerworks_search.alias_resolver.chain.class">Rollerworks\Component\Search\FieldAliasResolver\ChainFieldAliasResolverInterface</parameter>
+        <parameter key="rollerworks_search.alias_resolver.chain.class">Rollerworks\Component\Search\FieldAliasResolver\ChainFieldAliasResolver</parameter>
         <parameter key="rollerworks_search.extension.class">Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\DependencyInjectionExtension</parameter>
         <parameter key="rollerworks_search.fieldset_registry.class">Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\FieldSetRegistry</parameter>
     </parameters>
@@ -54,8 +54,8 @@
             <argument type="collection" />
         </service>
 
-        <!--<service id="rollerworks_search.alias_resolver.chain" class="%rollerworks_search.alias_resolver.chain.class%">-->
-            <!--<argument type="collection" />-->
-        <!--</service>-->
+        <service id="rollerworks_search.alias_resolver.chain" class="%rollerworks_search.alias_resolver.chain.class%">
+            <argument type="collection" />
+        </service>
     </services>
 </container>
