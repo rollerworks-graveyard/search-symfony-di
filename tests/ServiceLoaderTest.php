@@ -15,7 +15,11 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Matthias\SymfonyServiceDefinitionValidator\Compiler\ValidateServiceDefinitionsPass;
 use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\ServiceLoader;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Validator\Tests\Fixtures\Reference;
 
 class ServiceLoaderTest extends AbstractContainerBuilderTestCase
 {
@@ -39,6 +43,10 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
      */
     public function testLoadServiceFileIsValid($file)
     {
+        if ($file !== 'services') {
+              $this->serviceLoader->loadFile('services');
+        }
+
         $this->serviceLoader->loadFile($file);
         $this->compile();
 
@@ -65,7 +73,7 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
     {
         parent::setUp();
 
-        $this->container->addCompilerPass(new ValidateServiceDefinitionsPass(), PassConfig::TYPE_AFTER_REMOVING);
+        // We can't register the ValidateServiceDefinitionsPass as services are not resolved
         $this->container->register('service_container', 'Symfony\Component\DependencyInjection\Container');
 
         $this->serviceLoader = new ServiceLoader($this->container);

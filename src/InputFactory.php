@@ -52,7 +52,7 @@ class InputFactory
      *
      * @throws \InvalidArgumentException when there is no input processor with the given name.
      */
-    public function create($name)
+    public function get($name)
     {
         if (!isset($this->serviceIds[$name])) {
             throw new \InvalidArgumentException(
