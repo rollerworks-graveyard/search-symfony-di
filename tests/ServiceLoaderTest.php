@@ -40,18 +40,26 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
 
     /**
      * @dataProvider getServiceFiles
+     *
+     * @param string $file
      */
     public function testLoadServiceFileIsValid($file)
     {
+        $container = new ContainerBuilder();
+        $container->register('service_container', 'Symfony\Component\DependencyInjection\Container');
+        $container->addCompilerPass(new ValidateServiceDefinitionsPass(), PassConfig::TYPE_AFTER_REMOVING);
+
+        $serviceLoader = new ServiceLoader($container);
+
         if ($file !== 'services') {
-              $this->serviceLoader->loadFile('services');
+            $serviceLoader->loadFile('services');
         }
 
-        $this->serviceLoader->loadFile($file);
-        $this->compile();
+        $container->compile();
 
-        // Dummy, if there were no errors this test passes
-        $this->assertTrue(true);
+        $this->assertInstanceOf(
+            'Rollerworks\Component\Search\SearchFactory', $container->get('rollerworks_search.factory')
+        );
     }
 
     public static function getServiceFiles()
