@@ -1,6 +1,0 @@
-formatter.name: pretty
-
-suites:
-    search_suite:
-        namespace: Rollerworks\Component\Search
-        psr4_prefix: Rollerworks\Component\Search

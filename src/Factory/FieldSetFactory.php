@@ -14,6 +14,7 @@ namespace Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Fac
 use Rollerworks\Component\Search\Metadata\MetadataReaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * FieldSetFactory, provides registering FieldSets as services.
@@ -77,14 +78,14 @@ class FieldSetFactory
 
         foreach ($fieldSet->all() as $name => $field) {
             $fieldDef = new Definition();
-            $fieldDef->setFactoryService('rollerworks_search.factory');
 
             if (!empty($field['model_class'])) {
-                $fieldDef->setFactoryMethod('createFieldForProperty');
+                $this->setFactory($fieldDef, 'rollerworks_search.factory', 'createFieldForProperty');
+
                 $fieldDef->addArgument($field['model_class']);
                 $fieldDef->addArgument($field['model_property']);
             } else {
-                $fieldDef->setFactoryMethod('createField');
+                $this->setFactory($fieldDef, 'rollerworks_search.factory', 'createField');
             }
 
             $fieldDef->addArgument($name);
@@ -96,5 +97,15 @@ class FieldSetFactory
         }
 
         $this->container->setDefinition(sprintf('rollerworks_search.fieldset.%s', $fieldSet->getName()), $fieldSetDef);
+    }
+
+    private function setFactory(Definition $definition, $serviceId, $method)
+    {
+        if (method_exists($definition, 'setFactory')) {
+            $definition->setFactory(array(new Reference($serviceId), $method));
+        } else {
+            $definition->setFactoryService($serviceId);
+            $definition->setFactoryMethod($method);
+        }
     }
 }

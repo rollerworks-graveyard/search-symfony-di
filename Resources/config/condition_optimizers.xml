@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="rollerworks_search.chain_condition_optimizer" class="Rollerworks\Component\Search\ConditionOptimizer\ChainOptimizer" />
+        <service id="rollerworks_search.condition_optimizer" alias="rollerworks_search.chain_condition_optimizer" />
+
+        <service id="rollerworks_search.condition_optimizer.duplicate_remove" class="Rollerworks\Component\Search\ConditionOptimizer\DuplicateRemover" public="false">
+            <tag name="rollerworks_search.condition_optimizer" />
+        </service>
+        <service id="rollerworks_search.formatter.values_to_range" class="Rollerworks\Component\Search\ConditionOptimizer\ValuesToRange" public="false">
+            <tag name="rollerworks_search.condition_optimizer" />
+        </service>
+        <service id="rollerworks_search.condition_optimizer.range_optimizer" class="Rollerworks\Component\Search\ConditionOptimizer\RangeOptimizer" public="false">
+            <tag name="rollerworks_search.condition_optimizer" />
+        </service>
+    </services>
+</container>

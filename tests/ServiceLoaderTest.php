@@ -15,7 +15,11 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTest
 use Matthias\SymfonyServiceDefinitionValidator\Compiler\ValidateServiceDefinitionsPass;
 use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\ServiceLoader;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Validator\Tests\Fixtures\Reference;
 
 class ServiceLoaderTest extends AbstractContainerBuilderTestCase
 {
@@ -36,14 +40,26 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
 
     /**
      * @dataProvider getServiceFiles
+     *
+     * @param string $file
      */
     public function testLoadServiceFileIsValid($file)
     {
-        $this->serviceLoader->loadFile($file);
-        $this->compile();
+        $container = new ContainerBuilder();
+        $container->register('service_container', 'Symfony\Component\DependencyInjection\Container');
+        $container->addCompilerPass(new ValidateServiceDefinitionsPass(), PassConfig::TYPE_AFTER_REMOVING);
 
-        // Dummy, if there were no errors this test passes
-        $this->assertTrue(true);
+        $serviceLoader = new ServiceLoader($container);
+
+        if ($file !== 'services') {
+            $serviceLoader->loadFile('services');
+        }
+
+        $container->compile();
+
+        $this->assertInstanceOf(
+            'Rollerworks\Component\Search\SearchFactory', $container->get('rollerworks_search.factory')
+        );
     }
 
     public static function getServiceFiles()
@@ -65,7 +81,7 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
     {
         parent::setUp();
 
-        $this->container->addCompilerPass(new ValidateServiceDefinitionsPass(), PassConfig::TYPE_AFTER_REMOVING);
+        // We can't register the ValidateServiceDefinitionsPass as services are not resolved
         $this->container->register('service_container', 'Symfony\Component\DependencyInjection\Container');
 
         $this->serviceLoader = new ServiceLoader($this->container);

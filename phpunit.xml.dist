@@ -31,6 +31,9 @@
     </filter>
 
     <php>
+        <!-- Disable E_USER_DEPRECATED -->
+        <!-- php -r 'echo -1 & ~E_USER_DEPRECATED;' -->
+        <ini name="error_reporting" value="-16385"/>
         <ini name="mbstring.internal_encoding" value="UTF-8"/>
         <ini name="intl.default_locale" value="en"/>
     </php>

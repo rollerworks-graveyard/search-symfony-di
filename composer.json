@@ -16,16 +16,15 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "rollerworks/search": "1.0.0-beta4@dev",
-        "symfony/dependency-injection": "~2.1",
-        "symfony/config": "~2.2"
+        "rollerworks/search": ">1.0.0-beta4@dev",
+        "symfony/dependency-injection": "~2.3",
+        "symfony/config": "~2.3"
     },
     "require-dev": {
-        "phpspec/phpspec": "~2.1@dev",
-        "phpspec/prophecy": "~1.1@dev",
-        "phpunit/phpunit": "~3.7",
-        "matthiasnoback/symfony-dependency-injection-test": "0.*",
-        "matthiasnoback/symfony-service-definition-validator": "~1.1"
+        "symfony/finder": "~2.3",
+        "phpunit/phpunit": "~4.1",
+        "matthiasnoback/symfony-dependency-injection-test": "^0.7.1",
+        "matthiasnoback/symfony-service-definition-validator": "^1.2.2"
     },
     "autoload": {
         "psr-4": {

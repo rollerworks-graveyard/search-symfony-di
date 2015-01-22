@@ -3,7 +3,7 @@ Symfony DependencyInjection extension
 
 The RollerworksSearch Symfony DependencyInjection extension facilitates the
 loading of the SearchFactory and lazy loading of field-types, field-type
-extensions, FieldSets, Formatters (chain), input-processors and exporters.
+extensions, FieldSets, ConditionOptimizers (chain), input-processors and exporters.
 
 **Note:** This document expects you are already familiar with the
 [Symfony DependencyInjection component][1] and [RollerworksSearch][2]
@@ -23,8 +23,8 @@ service name.
 
 ### Preparing the container
 
-First you need to prepare the container, use following code to initialize
-the ContainerBuilder.
+First you need to prepare the container, use the following code
+to initialize the ContainerBuilder.
 
 **Note:** This doesn't include the types, formatters and such.
 See the dedicated documentation for activating (and usage).
@@ -32,16 +32,17 @@ See the dedicated documentation for activating (and usage).
 ```php
 use Rollerworks\Component\Search\Searches;
 use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\DependencyInjectionExtension;
+use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\DependencyInjectionExtension\Compiler;
 use Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\ServiceLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 $container = new ContainerBuilder();
 
 // First register the compiler passes to ensure lazy-loading works as expected
-$container->addCompilerPass(new ExtensionPass());
-$container->addCompilerPass(new InputProcessorPass());
-$container->addCompilerPass(new ExporterPass());
-$container->addCompilerPass(new FormatterPass());
+$container->addCompilerPass(new Compiler\ExtensionPass());
+$container->addCompilerPass(new Compiler\InputProcessorPass());
+$container->addCompilerPass(new Compiler\ExporterPass());
+$container->addCompilerPass(new Compiler\ConditionOptimizerPass());
 
 // Load the core services (including the SearchFactory)
 $serviceLoader = new ServiceLoader($container);
@@ -72,7 +73,7 @@ $searchFactory = $container->get('rollerworks_search.factory');
 ```
 
 * [Field types and type extensions](field_types.md)
-* [Formatters](formatter.md)
+* [ConditionOptimizers](condition_optimizers.md)
 * [Exporters](exporter.md)
 * [Input processor](input.md)
 
