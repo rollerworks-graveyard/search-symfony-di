@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksSearch Component package.
  *
- * (c) 2014 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -90,7 +90,7 @@ class FieldSetBuilder
             'options' => $options,
             'required' => $required,
             'class' => $modelClass,
-            'property' => $property
+            'property' => $property,
         );
 
         return $this;
@@ -181,7 +181,7 @@ class FieldSetBuilder
                 'options' => $field->options,
                 'required' => $field->required,
                 'class' => $field->class,
-                'property' => $field->property
+                'property' => $field->property,
             );
         }
 

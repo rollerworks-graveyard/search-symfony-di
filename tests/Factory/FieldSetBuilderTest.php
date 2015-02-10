@@ -1,9 +1,9 @@
 <?php
 
-/**
+/*
  * This file is part of the RollerworksSearch Component package.
  *
- * (c) 2014 Sebastiaan Stok <s.stok@rollerscapes.net>
+ * (c) Sebastiaan Stok <s.stok@rollerscapes.net>
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
@@ -33,7 +33,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('acme_user', $this->fieldSetBuilder->getName());
     }
 
-    function testSetField()
+    public function testSetField()
     {
         $expectedFieldSet = new FieldSet('acme_user');
         $expectedFieldSet->set('id', 'integer', 'stdClass', 'id', true);
@@ -54,14 +54,14 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
                 'options' => array(),
                 'required' => true,
                 'class' => 'stdClass',
-                'property' => 'id'
+                'property' => 'id',
             ),
             $this->fieldSetBuilder->get('id'),
             'field "id" must equal expected field'
         );
     }
 
-    function testRemoveField()
+    public function testRemoveField()
     {
         $this->fieldSetBuilder->set('id', 'integer', array(), true, 'stdClass', 'id');
         $this->fieldSetBuilder->set('name', 'text', array('invalid_message' => 'whoops'));
@@ -73,7 +73,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->fieldSetBuilder->has('id'), 'must have no field named "id" after remove');
     }
 
-    function testGetNoneRegisteredFieldGivesError()
+    public function testGetNoneRegisteredFieldGivesError()
     {
         $this->fieldSetBuilder->set('id', 'integer', array(), true, 'stdClass', 'id');
 
@@ -81,7 +81,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->fieldSetBuilder->get('name');
     }
 
-    function testImportFromClass()
+    public function testImportFromClass()
     {
         $class = 'Rollerworks\Component\Search\Tests\Stub\ECommerceInvoice';
 
@@ -107,7 +107,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedFieldSet, $actualFieldSet);
     }
 
-    function testImportFromClassWithInclude()
+    public function testImportFromClassWithInclude()
     {
         $class = 'Rollerworks\Component\Search\Tests\Stub\ECommerceInvoice';
 
@@ -132,7 +132,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedFieldSet, $actualFieldSet);
     }
 
-    function testImportFromClassWithExclude()
+    public function testImportFromClassWithExclude()
     {
         $class = 'Rollerworks\Component\Search\Tests\Stub\ECommerceInvoice';
 
