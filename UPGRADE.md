@@ -26,5 +26,5 @@ is updated to reflect the changes done in the RollerworksSearch core package.
 ## Input processor
 
 Input processors are reusable now, meaning that the `InputFactory`
-returns the same instance now. And that processors are not changed
-to scope prototype anymore.
+returns the same instance now. And that processors are not changed to scope
+prototype anymore.
