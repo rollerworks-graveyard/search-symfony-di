@@ -15,7 +15,8 @@ being registered!
 
 ## Registering
 
-Registering a FieldSet is done using the `Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Factory\FieldSetFactory`
+Registering a FieldSet is done using the
+`Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Factory\FieldSetFactory`
 class.
 
 **Caution:** The FieldSetFactory uses the FieldSet provides by this extension,
