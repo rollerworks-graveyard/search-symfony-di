@@ -27,7 +27,10 @@ $container
 
 // Now register the type-extension
 $container
-    ->register('rollerworks_search.type_extension.date_microtime', 'Rollerworks\Component\Search\Type\DateMicrotimeExtension')
+    ->register(
+        'rollerworks_search.type_extension.date_microtime',
+        'Rollerworks\Component\Search\Type\DateMicrotimeExtension'
+    )
     ->addTag('rollerworks_search.type_extension', array('alias' => 'date'));
 ```
 

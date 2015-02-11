@@ -2,12 +2,15 @@ ConditionOptimizers
 ===================
 
 You can register a condition-optimizer as service, tagging the service
-as 'rollerworks_search.condition_optimizer' ensures it will be registered at
-the 'rollerworks_search.chain_condition' service.
+as 'rollerworks_search.condition_optimizer' ensures it will be registered
+at the 'rollerworks_search.chain_condition' service.
 
 ```php
 $container
-    ->register('rollerworks_search.condition_optimizer.duplicate_remove', 'Rollerworks\Component\Search\ConditionOptimizer\DuplicateRemover')
+    ->register(
+        'rollerworks_search.condition_optimizer.duplicate_remove',
+        'Rollerworks\Component\Search\ConditionOptimizer\DuplicateRemover'
+    )
     ->addTag('rollerworks_search.condition_optimizer');
 ```
 

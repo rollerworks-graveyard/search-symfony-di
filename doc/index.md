@@ -3,7 +3,8 @@ Symfony DependencyInjection extension
 
 The RollerworksSearch Symfony DependencyInjection extension facilitates the
 loading of the SearchFactory and lazy loading of field-types, field-type
-extensions, FieldSets, ConditionOptimizers (chain), input-processors and exporters.
+extensions, FieldSets, ConditionOptimizers (chain), input-processors and
+exporters.
 
 **Note:** This document expects you are already familiar with the
 [Symfony DependencyInjection component][1] and [RollerworksSearch][2]

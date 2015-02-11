@@ -14,7 +14,10 @@ is used instead.
 
 ```php
 $container
-    ->register('rollerworks_search.exporter.filter_query', 'Rollerworks\Component\Search\Exporter\FilterQueryExporter')
+    ->register(
+        'rollerworks_search.exporter.filter_query',
+        'Rollerworks\Component\Search\Exporter\FilterQueryExporter'
+    )
     ->addTag('rollerworks_search.exporter', array('alias' => 'filter_query'));
 ```
 
