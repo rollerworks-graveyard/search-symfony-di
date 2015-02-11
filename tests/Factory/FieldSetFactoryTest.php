@@ -66,10 +66,7 @@ class FieldSetFactoryTest extends AbstractContainerBuilderTestCase
         $this->container->addCompilerPass(new ValidateServiceDefinitionsPass(), PassConfig::TYPE_AFTER_REMOVING);
         $this->container->register('service_container', 'Symfony\Component\DependencyInjection\Container');
 
-        $serviceLoader = new ServiceLoader($this->container);
-        $serviceLoader->loadFile('services');
-        $serviceLoader->loadFile('type');
-
+        new ServiceLoader($this->container);
         $this->fieldSetFactory = new FieldSetFactory(
             $this->container
         );

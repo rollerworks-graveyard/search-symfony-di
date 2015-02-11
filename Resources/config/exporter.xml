@@ -20,7 +20,7 @@
         </service>
 
         <service id="rollerworks_search.exporter_abstract" abstract="true">
-            <argument type="service" id="rollerworks_search.alias_resolver.chain" />
+            <argument type="service" id="rollerworks_search.field_label_resolver.chain" />
         </service>
 
         <service id="rollerworks_search.exporter.filter_query" class="%rollerworks_search.exporter.filter_query.class%" parent="rollerworks_search.exporter_abstract">

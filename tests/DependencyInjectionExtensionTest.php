@@ -27,10 +27,7 @@ final class DependencyInjectionExtensionTest extends \PHPUnit_Framework_TestCase
         $this->serviceContainer = new ContainerBuilder();
         $this->serviceContainer->addCompilerPass(new ExtensionPass());
 
-        $serviceLoader = new ServiceLoader($this->serviceContainer);
-        $serviceLoader->loadFile('services');
-        $serviceLoader->loadFile('type');
-
+        new ServiceLoader($this->serviceContainer);
         $this->serviceContainer->compile();
     }
 
