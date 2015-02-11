@@ -24,6 +24,11 @@
             <argument type="collection" />
         </service>
 
+        <!-- SearchConditionSerializer -->
+        <service id="rollerworks_search.condition_serializer" class="Rollerworks\Component\Search\SearchConditionSerializer">
+            <argument id="rollerworks_search.fieldset_registry" type="service" />
+        </service>
+
         <!-- SearchRegistry -->
         <service id="rollerworks_search.registry" class="%rollerworks_search.registry.class%">
             <argument type="collection">
