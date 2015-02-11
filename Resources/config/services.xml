@@ -54,7 +54,13 @@
             <argument type="collection" />
         </service>
 
-        <service id="rollerworks_search.alias_resolver.chain" class="%rollerworks_search.alias_resolver.chain.class%" public="false">
+        <service id="rollerworks_search.field_alias_resolver.chain" class="%rollerworks_search.alias_resolver.chain.class%" public="false">
+            <!-- All services with tag "rollerworks_search.field_alias_resolver" are inserted here by ChainFieldAliasResolverPass -->
+            <argument type="collection" />
+        </service>
+
+        <service id="rollerworks_search.field_label_resolver.chain" class="Rollerworks\Component\Search\FieldLabelResolver\ChainFieldLabelResolver" public="false">
+            <!-- All services with tag "rollerworks_search.field_label_resolver" are inserted here by ChainFieldLabelResolverPass -->
             <argument type="collection" />
         </service>
     </services>
