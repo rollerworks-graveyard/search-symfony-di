@@ -4,53 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="rollerworks_search.resolved_type_factory.class">Rollerworks\Component\Search\ResolvedFieldTypeFactory</parameter>
-        <parameter key="rollerworks_search.registry.class">Rollerworks\Component\Search\FieldRegistry</parameter>
-        <parameter key="rollerworks_search.factory.class">Rollerworks\Component\Search\SearchFactory</parameter>
-        <parameter key="rollerworks_search.extension.class">Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\DependencyInjectionExtension</parameter>
-        <parameter key="rollerworks_search.fieldset_registry.class">Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\FieldSetRegistry</parameter>
-    </parameters>
-
     <services>
-        <!-- ResolvedFormTypeFactory -->
-        <service id="rollerworks_search.resolved_type_factory" class="%rollerworks_search.resolved_type_factory.class%" />
-
-        <!-- FieldSetRegistry -->
-        <service id="rollerworks_search.fieldset_registry" class="%rollerworks_search.fieldset_registry.class%">
-            <argument id="service_container" type="service" />
-            <argument type="collection" />
-        </service>
-
-        <!-- SearchRegistry -->
-        <service id="rollerworks_search.registry" class="%rollerworks_search.registry.class%">
-            <argument type="collection">
-                <!--
-                We don't need to be able to add more extensions.
-                * more types can be registered with the rollerworks_search.type tag
-                * more type extensions can be registered with the rollerworks_search.type_extension tag
-                -->
-                <argument type="service" id="rollerworks_search.extension" />
-            </argument>
-            <argument type="service" id="rollerworks_search.resolved_type_factory" />
-        </service>
-
-        <!-- SearchFactory -->
-        <service id="rollerworks_search.factory" class="%rollerworks_search.factory.class%">
-            <argument type="service" id="rollerworks_search.registry" />
-            <argument type="service" id="rollerworks_search.resolved_type_factory" />
-            <argument type="service" id="rollerworks_search.metadata_factory" on-invalid="null" />
-        </service>
-
-        <!-- DependencyInjectionExtension -->
-        <service id="rollerworks_search.extension" class="%rollerworks_search.extension.class%" public="false">
-            <argument type="service" id="service_container" />
-            <!-- All services with tag "rollerworks_search.type" are inserted here by ExtensionPass -->
-            <argument type="collection" />
-            <!-- All services with tag "rollerworks_search.type_extension" are inserted here by ExtensionPass -->
-            <argument type="collection" />
-        </service>
-
         <!-- CoreExtension -->
         <service id="rollerworks_search.value_comparison.simple" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\SimpleValueComparison" public="false" />
         <service id="rollerworks_search.value_comparison.date_time" class="Rollerworks\Component\Search\Extension\Core\ValueComparison\DateTimeValueComparison" public="false" />
