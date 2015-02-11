@@ -34,6 +34,8 @@ class ServiceLoader
     public function __construct(ContainerBuilder $container)
     {
         $this->loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $this->loader->load('services.xml');
+        $this->loader->load('type.xml');
     }
 
     /**
@@ -43,6 +45,13 @@ class ServiceLoader
      */
     public function loadFile($serviceFile)
     {
+        if ('services' === $serviceFile || 'type' === $serviceFile) {
+            trigger_error(
+                'Since v1.0.0-beta3 the service files "services" and "type" are automatically loaded.',
+                E_USER_DEPRECATED
+            );
+        }
+
         $this->loader->load($serviceFile.'.xml');
 
         return $this;

@@ -25,10 +25,8 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
      */
     private $serviceLoader;
 
-    public function testLoadServiceFile()
+    public function testCoreServicesAreRegistered()
     {
-        $this->serviceLoader->loadFile('services');
-
         $this->assertContainerBuilderHasService(
             'rollerworks_search.factory',
             'Rollerworks\Component\Search\SearchFactory'
@@ -47,10 +45,7 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
         $container->addCompilerPass(new ValidateServiceDefinitionsPass(), PassConfig::TYPE_AFTER_REMOVING);
 
         $serviceLoader = new ServiceLoader($container);
-
-        if ($file !== 'services') {
-            $serviceLoader->loadFile('services');
-        }
+        $serviceLoader->loadFile($file);
 
         $container->compile();
 
