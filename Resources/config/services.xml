@@ -15,7 +15,7 @@
 
     <services>
         <!-- ResolvedFormTypeFactory -->
-        <service id="rollerworks_search.resolved_type_factory" class="%rollerworks_search.resolved_type_factory.class%" />
+        <service id="rollerworks_search.resolved_type_factory" class="%rollerworks_search.resolved_type_factory.class%" public="false" />
 
         <!-- FieldSetRegistry -->
         <service id="rollerworks_search.fieldset_registry" class="%rollerworks_search.fieldset_registry.class%">
@@ -30,7 +30,7 @@
         </service>
 
         <!-- SearchRegistry -->
-        <service id="rollerworks_search.registry" class="%rollerworks_search.registry.class%">
+        <service id="rollerworks_search.field_registry" class="%rollerworks_search.registry.class%" public="false">
             <argument type="collection">
                 <!--
                 We don't need to be able to add more extensions.
@@ -45,7 +45,7 @@
 
         <!-- SearchFactory -->
         <service id="rollerworks_search.factory" class="%rollerworks_search.factory.class%">
-            <argument type="service" id="rollerworks_search.registry" />
+            <argument type="service" id="rollerworks_search.field_registry" />
             <argument type="service" id="rollerworks_search.resolved_type_factory" />
             <argument type="service" id="rollerworks_search.metadata_factory" on-invalid="null" />
         </service>
