@@ -45,13 +45,6 @@ class ServiceLoader
      */
     public function loadFile($serviceFile)
     {
-        if ('services' === $serviceFile || 'type' === $serviceFile) {
-            trigger_error(
-                'Since v1.0.0-beta3 the service files "services" and "type" are automatically loaded.',
-                E_USER_DEPRECATED
-            );
-        }
-
         $this->loader->load($serviceFile.'.xml');
 
         return $this;
