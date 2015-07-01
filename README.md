@@ -22,7 +22,7 @@ for more information.
 Installation
 ------------
 
-To install this extension, add the `search-symfony-di` to your composer.json
+To install this extension, add the `rollerworks/search-symfony-di` to your composer.json
 
 ```bash
 $ php composer.phar require rollerworks/search-symfony-di
