@@ -22,7 +22,6 @@
     },
     "require-dev": {
         "symfony/finder": "~2.3",
-        "phpunit/phpunit": "~4.1",
         "matthiasnoback/symfony-dependency-injection-test": "^0.7.1",
         "matthiasnoback/symfony-service-definition-validator": "^1.2.2"
     },
