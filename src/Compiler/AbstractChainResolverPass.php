@@ -32,7 +32,7 @@ abstract class AbstractChainResolverPass implements CompilerPassInterface
         }
 
         $container->getDefinition($chainServiceId)->replaceArgument(
-            1,
+            0,
             array_keys($container->findTaggedServiceIds(sprintf('rollerworks_search.%s', $this->getChainType())))
         );
     }
