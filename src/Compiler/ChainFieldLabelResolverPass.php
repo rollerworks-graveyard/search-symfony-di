@@ -11,9 +11,6 @@
 
 namespace Rollerworks\Component\Search\Extension\Symfony\DependencyInjection\Compiler;
 
-use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 /**
  * Compiler pass registers services tagged as 'rollerworks_search.field_label_resolver'
  * on the 'rollerworks_search.field_label_resolver.chain' service.

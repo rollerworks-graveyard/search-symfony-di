@@ -29,7 +29,7 @@ class ExporterFactory
     /**
      * @var string[]
      */
-    private $serviceIds = array();
+    private $serviceIds = [];
 
     /**
      * @param ContainerInterface $container
@@ -46,9 +46,9 @@ class ExporterFactory
      *
      * @param string $format
      *
-     * @return ExporterInterface
-     *
      * @throws \InvalidArgumentException when there is no exporter for the given format.
+     *
+     * @return ExporterInterface
      */
     public function create($format)
     {

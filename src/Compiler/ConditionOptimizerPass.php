@@ -34,7 +34,7 @@ class ConditionOptimizerPass implements CompilerPassInterface
         $definition = $container->getDefinition('rollerworks_search.chain_condition_optimizer');
 
         foreach (array_keys($container->findTaggedServiceIds('rollerworks_search.condition_optimizer')) as $serviceId) {
-            $definition->addMethodCall('addOptimizer', array(new Reference($serviceId)));
+            $definition->addMethodCall('addOptimizer', [new Reference($serviceId)]);
         }
     }
 }

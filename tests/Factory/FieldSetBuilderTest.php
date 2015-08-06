@@ -37,10 +37,10 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $expectedFieldSet = new FieldSet('acme_user');
         $expectedFieldSet->set('id', 'integer', 'stdClass', 'id', true);
-        $expectedFieldSet->set('name', 'text', null, null, false, array('invalid_message' => 'whoops'));
+        $expectedFieldSet->set('name', 'text', null, null, false, ['invalid_message' => 'whoops']);
 
-        $this->fieldSetBuilder->set('id', 'integer', array(), true, 'stdClass', 'id');
-        $this->fieldSetBuilder->set('name', 'text', array('invalid_message' => 'whoops'));
+        $this->fieldSetBuilder->set('id', 'integer', [], true, 'stdClass', 'id');
+        $this->fieldSetBuilder->set('name', 'text', ['invalid_message' => 'whoops']);
 
         $actualFieldSet = $this->fieldSetBuilder->getFieldSet();
         $this->assertEquals($expectedFieldSet, $actualFieldSet);
@@ -49,13 +49,13 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->fieldSetBuilder->has('email'), 'must have no field named "email"');
 
         $this->assertEquals(
-            array(
+            [
                 'type' => 'integer',
-                'options' => array(),
+                'options' => [],
                 'required' => true,
                 'class' => 'stdClass',
                 'property' => 'id',
-            ),
+            ],
             $this->fieldSetBuilder->get('id'),
             'field "id" must equal expected field'
         );
@@ -63,8 +63,8 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testRemoveField()
     {
-        $this->fieldSetBuilder->set('id', 'integer', array(), true, 'stdClass', 'id');
-        $this->fieldSetBuilder->set('name', 'text', array('invalid_message' => 'whoops'));
+        $this->fieldSetBuilder->set('id', 'integer', [], true, 'stdClass', 'id');
+        $this->fieldSetBuilder->set('name', 'text', ['invalid_message' => 'whoops']);
 
         $this->assertTrue($this->fieldSetBuilder->has('id'), 'must have a field named "id"');
         $this->assertFalse($this->fieldSetBuilder->has('email'), 'must have no field named "email"');
@@ -75,7 +75,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testGetNoneRegisteredFieldGivesError()
     {
-        $this->fieldSetBuilder->set('id', 'integer', array(), true, 'stdClass', 'id');
+        $this->fieldSetBuilder->set('id', 'integer', [], true, 'stdClass', 'id');
 
         $this->setExpectedException('InvalidArgumentException', 'The field with the name "name" does not exist.');
         $this->fieldSetBuilder->get('name');
@@ -87,12 +87,12 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
 
         $expectedFieldSet = new FieldSet('acme_user');
         $expectedFieldSet->set('id', 'integer', $class, 'id', true);
-        $expectedFieldSet->set('user_name', 'text', $class, 'name', false, array('invalid_message' => 'whoops'));
+        $expectedFieldSet->set('user_name', 'text', $class, 'name', false, ['invalid_message' => 'whoops']);
 
-        $fields = array(
+        $fields = [
             'id' => new SearchField('id', $class, 'id', true, 'integer'),
-            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
-        );
+            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', ['invalid_message' => 'whoops']),
+        ];
 
         $this->metadataReader
             ->expects($this->atLeastOnce())
@@ -114,10 +114,10 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $expectedFieldSet = new FieldSet('acme_user');
         $expectedFieldSet->set('id', 'integer', $class, 'id', true);
 
-        $fields = array(
+        $fields = [
             'id' => new SearchField('id', $class, 'id', true, 'integer'),
-            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
-        );
+            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', ['invalid_message' => 'whoops']),
+        ];
 
         $this->metadataReader
             ->expects($this->atLeastOnce())
@@ -126,7 +126,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($fields))
         ;
 
-        $this->fieldSetBuilder->importFromClass($class, array('id'));
+        $this->fieldSetBuilder->importFromClass($class, ['id']);
 
         $actualFieldSet = $this->fieldSetBuilder->getFieldSet();
         $this->assertEquals($expectedFieldSet, $actualFieldSet);
@@ -139,10 +139,10 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
         $expectedFieldSet = new FieldSet('acme_user');
         $expectedFieldSet->set('id', 'integer', $class, 'id', true);
 
-        $fields = array(
+        $fields = [
             'id' => new SearchField('id', $class, 'id', true, 'integer'),
-            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', array('invalid_message' => 'whoops')),
-        );
+            'user_name' => new SearchField('user_name', $class, 'name', false, 'text', ['invalid_message' => 'whoops']),
+        ];
 
         $this->metadataReader
             ->expects($this->atLeastOnce())
@@ -151,7 +151,7 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue($fields))
         ;
 
-        $this->fieldSetBuilder->importFromClass($class, array(), array('user_name'));
+        $this->fieldSetBuilder->importFromClass($class, [], ['user_name']);
 
         $actualFieldSet = $this->fieldSetBuilder->getFieldSet();
         $this->assertEquals($expectedFieldSet, $actualFieldSet);

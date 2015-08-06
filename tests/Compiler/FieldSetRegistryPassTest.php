@@ -21,12 +21,12 @@ class FieldSetRegistryPassTest extends AbstractCompilerPassTestCase
     public function testRegisteringExporterPass()
     {
         $collectingService = new Definition();
-        $collectingService->setArguments(array(null, array()));
+        $collectingService->setArguments([null, []]);
 
         $this->setDefinition('rollerworks_search.fieldset_registry', $collectingService);
 
         $collectedService = new Definition();
-        $collectedService->addTag('rollerworks_search.fieldset', array('name' => 'acme_user'));
+        $collectedService->addTag('rollerworks_search.fieldset', ['name' => 'acme_user']);
         $this->setDefinition('rollerworks_search.fieldset.acme_user', $collectedService);
 
         $this->compile();
@@ -34,7 +34,7 @@ class FieldSetRegistryPassTest extends AbstractCompilerPassTestCase
         $collectingService = $this->container->findDefinition('rollerworks_search.fieldset_registry');
 
         $this->assertNull($collectingService->getArgument(0));
-        $this->assertEquals($collectingService->getArgument(1), array('acme_user' => 'rollerworks_search.fieldset.acme_user'));
+        $this->assertEquals($collectingService->getArgument(1), ['acme_user' => 'rollerworks_search.fieldset.acme_user']);
     }
 
     protected function registerCompilerPass(ContainerBuilder $container)

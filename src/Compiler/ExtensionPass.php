@@ -58,7 +58,7 @@ class ExtensionPass implements CompilerPassInterface
 
     private function processTypes(Definition $definition, ContainerBuilder $container)
     {
-        $types = array();
+        $types = [];
 
         foreach ($container->findTaggedServiceIds('rollerworks_search.type') as $serviceId => $tag) {
             $alias = isset($tag[0]['alias']) ? $tag[0]['alias'] : $serviceId;
@@ -71,7 +71,7 @@ class ExtensionPass implements CompilerPassInterface
 
     private function processTypeExtensions(Definition $definition, ContainerBuilder $container)
     {
-        $typeExtensions = array();
+        $typeExtensions = [];
 
         foreach ($container->findTaggedServiceIds('rollerworks_search.type_extension') as $serviceId => $tag) {
             $alias = isset($tag[0]['alias'])

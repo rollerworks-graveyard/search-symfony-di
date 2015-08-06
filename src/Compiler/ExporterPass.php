@@ -30,7 +30,7 @@ class ExporterPass implements CompilerPassInterface
             return;
         }
 
-        $exporters = array();
+        $exporters = [];
         foreach ($container->findTaggedServiceIds('rollerworks_search.exporter') as $serviceId => $tag) {
             $container->findDefinition($serviceId)->setScope('prototype');
 

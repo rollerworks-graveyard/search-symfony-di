@@ -74,7 +74,7 @@ class FieldSetFactory
     {
         $fieldSetDef = new Definition('Rollerworks\Component\Search\FieldSet');
         $fieldSetDef->addArgument($fieldSet->getName());
-        $fieldSetDef->addTag('rollerworks_search.fieldset', array('name' => $fieldSet->getName()));
+        $fieldSetDef->addTag('rollerworks_search.fieldset', ['name' => $fieldSet->getName()]);
 
         foreach ($fieldSet->all() as $name => $field) {
             $fieldDef = new Definition();
@@ -93,7 +93,7 @@ class FieldSetFactory
             $fieldDef->addArgument($field['options']);
             $fieldDef->addArgument($field['required']);
 
-            $fieldSetDef->addMethodCall('set', array($name, $fieldDef));
+            $fieldSetDef->addMethodCall('set', [$name, $fieldDef]);
         }
 
         $this->container->setDefinition(sprintf('rollerworks_search.fieldset.%s', $fieldSet->getName()), $fieldSetDef);
@@ -102,7 +102,7 @@ class FieldSetFactory
     private function setFactory(Definition $definition, $serviceId, $method)
     {
         if (method_exists($definition, 'setFactory')) {
-            $definition->setFactory(array(new Reference($serviceId), $method));
+            $definition->setFactory([new Reference($serviceId), $method]);
         } else {
             $definition->setFactoryService($serviceId);
             $definition->setFactoryMethod($method);

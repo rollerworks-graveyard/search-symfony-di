@@ -32,14 +32,14 @@ class FieldSetFactoryTest extends AbstractContainerBuilderTestCase
         $fieldSet = new FieldSet('acme_users');
         $fieldSet->set('id', 'integer', 'User', 'id');
         $fieldSet->set('name', 'text', null, null, true);
-        $fieldSet->set('email', 'text', null, null, false, array('invalid_message' => 'this is not an email'));
+        $fieldSet->set('email', 'text', null, null, false, ['invalid_message' => 'this is not an email']);
 
         $this->fieldSetFactory->register($fieldSet);
 
         $this->assertContainerBuilderHasServiceDefinitionWithTag(
             'rollerworks_search.fieldset.acme_users',
             'rollerworks_search.fieldset',
-            array('name' => 'acme_users')
+            ['name' => 'acme_users']
         );
 
         $this->container->compile();

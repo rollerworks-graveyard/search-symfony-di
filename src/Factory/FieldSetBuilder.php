@@ -27,7 +27,7 @@ class FieldSetBuilder
     /**
      * @var array
      */
-    protected $fields = array();
+    protected $fields = [];
 
     /**
      * @var MetadataReaderInterface
@@ -71,11 +71,11 @@ class FieldSetBuilder
      * @param string $modelClass
      * @param string $property
      *
-     * @return self
-     *
      * @throws UnexpectedTypeException
+     *
+     * @return self
      */
-    public function set($field, $type = null, array $options = array(), $required = false, $modelClass = null, $property = null)
+    public function set($field, $type = null, array $options = [], $required = false, $modelClass = null, $property = null)
     {
         if (!is_string($field)) {
             throw new UnexpectedTypeException($field, 'string');
@@ -85,13 +85,13 @@ class FieldSetBuilder
             throw new UnexpectedTypeException($type, 'string" or "null');
         }
 
-        $this->fields[$field] = array(
+        $this->fields[$field] = [
             'type' => $type,
             'options' => $options,
             'required' => $required,
             'class' => $modelClass,
             'property' => $property,
-        );
+        ];
 
         return $this;
     }
@@ -101,9 +101,9 @@ class FieldSetBuilder
      *
      * @param string $name
      *
-     * @return self
-     *
      * @throws BadMethodCallException
+     *
+     * @return self
      */
     public function remove($name)
     {
@@ -117,9 +117,9 @@ class FieldSetBuilder
      *
      * @param string $name
      *
-     * @return boolean
-     *
      * @throws BadMethodCallException
+     *
+     * @return bool
      */
     public function has($name)
     {
@@ -131,9 +131,9 @@ class FieldSetBuilder
      *
      * @param string $name
      *
-     * @return array
-     *
      * @throws InvalidArgumentException
+     *
+     * @return array
      */
     public function get($name)
     {
@@ -157,11 +157,11 @@ class FieldSetBuilder
      * @param array  $include List of field names to use, everything else is excluded
      * @param array  $exclude List of field names to exclude
      *
-     * @return self
-     *
      * @throws \RuntimeException when there is no MappingReader set
+     *
+     * @return self
      */
-    public function importFromClass($class, array $include = array(), array $exclude = array())
+    public function importFromClass($class, array $include = [], array $exclude = [])
     {
         $metadata = $this->mappingReader->getSearchFields($class);
 
@@ -176,13 +176,13 @@ class FieldSetBuilder
                 continue;
             }
 
-            $this->fields[$field->fieldName] = array(
+            $this->fields[$field->fieldName] = [
                 'type' => $field->type,
                 'options' => $field->options,
                 'required' => $field->required,
                 'class' => $field->class,
                 'property' => $field->property,
-            );
+            ];
         }
 
         return $this;
@@ -220,7 +220,7 @@ class FieldSetBuilder
      *
      * @return bool
      */
-    protected function isFieldAccepted($field, $include = array(), $exclude = array())
+    protected function isFieldAccepted($field, $include = [], $exclude = [])
     {
         if ($include) {
             return in_array($field, $include, true);

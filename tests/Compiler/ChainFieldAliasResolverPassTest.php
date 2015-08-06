@@ -21,7 +21,7 @@ class ChainFieldAliasResolverPassTest extends AbstractCompilerPassTestCase
     public function testRegisteringInputProcessors()
     {
         $collectingService = new Definition();
-        $collectingService->setArguments(array(null, array()));
+        $collectingService->setArguments([null, []]);
 
         $this->setDefinition('rollerworks_search.concrete_resolver.chain', $collectingService);
 
@@ -34,7 +34,7 @@ class ChainFieldAliasResolverPassTest extends AbstractCompilerPassTestCase
         $collectingService = $this->container->findDefinition('rollerworks_search.concrete_resolver.chain');
 
         $this->assertNull($collectingService->getArgument(0));
-        $this->assertEquals($collectingService->getArgument(1), array('acme_user.search.concrete_resolver.jsonp'));
+        $this->assertEquals($collectingService->getArgument(1), ['acme_user.search.concrete_resolver.jsonp']);
     }
 
     protected function registerCompilerPass(ContainerBuilder $container)

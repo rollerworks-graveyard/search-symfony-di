@@ -22,12 +22,12 @@ class ExtensionPassTest extends AbstractCompilerPassTestCase
     public function testRegisteringOfSearchTypes()
     {
         $collectingService = new Definition();
-        $collectingService->setArguments(array(null, array(), array()));
+        $collectingService->setArguments([null, [], []]);
 
         $this->setDefinition('rollerworks_search.extension', $collectingService);
 
         $collectedService = new Definition();
-        $collectedService->addTag('rollerworks_search.type', array('alias' => 'user_id'));
+        $collectedService->addTag('rollerworks_search.type', ['alias' => 'user_id']);
         $this->setDefinition('acme_user.search.type.user_id', $collectedService);
 
         $this->compile();
@@ -35,19 +35,19 @@ class ExtensionPassTest extends AbstractCompilerPassTestCase
         $collectingService = $this->container->findDefinition('rollerworks_search.extension');
 
         $this->assertNull($collectingService->getArgument(0));
-        $this->assertEquals(array('user_id' => 'acme_user.search.type.user_id'), $collectingService->getArgument(1));
+        $this->assertEquals(['user_id' => 'acme_user.search.type.user_id'], $collectingService->getArgument(1));
         $this->assertCount(0, $collectingService->getArgument(2));
     }
 
     public function testRegisteringOfSearchTypesExtensions()
     {
         $collectingService = new Definition();
-        $collectingService->setArguments(array(null, array(), array()));
+        $collectingService->setArguments([null, [], []]);
 
         $this->setDefinition('rollerworks_search.extension', $collectingService);
 
         $collectedService = new Definition();
-        $collectedService->addTag('rollerworks_search.type_extension', array('alias' => 'field'));
+        $collectedService->addTag('rollerworks_search.type_extension', ['alias' => 'field']);
         $this->setDefinition('acme_user.search.type_extension.field', $collectedService);
 
         $this->compile();
@@ -57,7 +57,7 @@ class ExtensionPassTest extends AbstractCompilerPassTestCase
         $this->assertNull($collectingService->getArgument(0));
         $this->assertCount(0, $collectingService->getArgument(1));
         $this->assertEquals(
-             array('field' => array('acme_user.search.type_extension.field')),
+             ['field' => ['acme_user.search.type_extension.field']],
              $collectingService->getArgument(2)
         );
     }
@@ -65,14 +65,14 @@ class ExtensionPassTest extends AbstractCompilerPassTestCase
     public function testRegisteringOfSearchExtensions()
     {
         $extensionDefinition = new Definition();
-        $extensionDefinition->setArguments(array(null, array(), array()));
+        $extensionDefinition->setArguments([null, [], []]);
         $this->setDefinition('rollerworks_search.extension', $extensionDefinition);
 
         $collectingService = new Definition();
         $collectingService->setArguments(
-            array(
-                array(new Reference('rollerworks_search.extension')),
-            )
+            [
+                [new Reference('rollerworks_search.extension')],
+            ]
         );
 
         $this->setDefinition('rollerworks_search.registry', $collectingService);
@@ -87,10 +87,10 @@ class ExtensionPassTest extends AbstractCompilerPassTestCase
 
         $this->assertEquals(
             $collectingService->getArgument(0),
-            array(
+            [
                 new Reference('rollerworks_search.extension'),
                 new Reference('rollerworks_search.extension.doctrine_orm'),
-            )
+            ]
         );
     }
 

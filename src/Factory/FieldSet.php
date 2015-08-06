@@ -22,7 +22,7 @@ class FieldSet
     /**
      * @var array
      */
-    private $fields = array();
+    private $fields = [];
 
     /**
      * @var string
@@ -63,15 +63,15 @@ class FieldSet
      *
      * @return FieldSet
      */
-    public function set($name, $type = null, $modelClass = null, $modelProperty = null, $required = false, array $options = array())
+    public function set($name, $type = null, $modelClass = null, $modelProperty = null, $required = false, array $options = [])
     {
-        $this->fields[$name] = array(
+        $this->fields[$name] = [
             'type' => $type,
             'model_class' => $modelClass,
             'model_property' => $modelProperty,
             'required' => $required,
             'options' => $options,
-        );
+        ];
 
         return $this;
     }
@@ -81,9 +81,9 @@ class FieldSet
      *
      * @param string $name
      *
-     * @return array
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return array
      */
     public function get($name)
     {

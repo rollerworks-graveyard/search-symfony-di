@@ -21,12 +21,12 @@ class ExporterPassPassTest extends AbstractCompilerPassTestCase
     public function testRegisteringExporterPass()
     {
         $collectingService = new Definition();
-        $collectingService->setArguments(array(null, array()));
+        $collectingService->setArguments([null, []]);
 
         $this->setDefinition('rollerworks_search.exporter_factory', $collectingService);
 
         $collectedService = new Definition();
-        $collectedService->addTag('rollerworks_search.exporter', array('alias' => 'jsonp'));
+        $collectedService->addTag('rollerworks_search.exporter', ['alias' => 'jsonp']);
         $this->setDefinition('acme_user.search.exporter.jsonp', $collectedService);
 
         $this->compile();
@@ -34,7 +34,7 @@ class ExporterPassPassTest extends AbstractCompilerPassTestCase
         $collectingService = $this->container->findDefinition('rollerworks_search.exporter_factory');
 
         $this->assertNull($collectingService->getArgument(0));
-        $this->assertEquals($collectingService->getArgument(1), array('jsonp' => 'acme_user.search.exporter.jsonp'));
+        $this->assertEquals($collectingService->getArgument(1), ['jsonp' => 'acme_user.search.exporter.jsonp']);
     }
 
     protected function registerCompilerPass(ContainerBuilder $container)

@@ -60,10 +60,10 @@ class ServiceLoaderTest extends AbstractContainerBuilderTestCase
             ->in(__DIR__.'/../Resources/config')
             ->files();
 
-        $files = array();
+        $files = [];
 
         foreach ($finder as $file) {
-            $files[] = array(substr($file, 0, -4));
+            $files[] = [substr($file, 0, -4)];
         }
 
         return $files;

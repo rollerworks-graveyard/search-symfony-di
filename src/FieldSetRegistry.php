@@ -24,7 +24,7 @@ class FieldSetRegistry implements FieldSetRegistryInterface
     /**
      * @var string[]
      */
-    private $serviceIds = array();
+    private $serviceIds = [];
 
     /**
      * @var ContainerInterface

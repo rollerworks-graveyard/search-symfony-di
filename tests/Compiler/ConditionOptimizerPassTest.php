@@ -24,7 +24,7 @@ final class ConditionOptimizerPassTest extends AbstractCompilerPassTestCase
     public function testRegisteringConditionOptimizers()
     {
         $collectingService = new Definition();
-        $collectingService->setArguments(array(null, array(), array()));
+        $collectingService->setArguments([null, [], []]);
 
         $this->setDefinition('rollerworks_search.chain_condition_optimizer', $collectingService);
 
@@ -36,11 +36,11 @@ final class ConditionOptimizerPassTest extends AbstractCompilerPassTestCase
         $collectingService = $this->container->findDefinition('rollerworks_search.chain_condition_optimizer');
         $calls = $collectingService->getMethodCalls();
 
-        $expectedCalls = array(
-            array('addOptimizer', array(new Reference(self::SERVICE_PREFIX.'first'))),
-            array('addOptimizer', array(new Reference(self::SERVICE_PREFIX.'second'))),
-            array('addOptimizer', array(new Reference(self::SERVICE_PREFIX.'last'))),
-        );
+        $expectedCalls = [
+            ['addOptimizer', [new Reference(self::SERVICE_PREFIX.'first')]],
+            ['addOptimizer', [new Reference(self::SERVICE_PREFIX.'second')]],
+            ['addOptimizer', [new Reference(self::SERVICE_PREFIX.'last')]],
+        ];
 
         $this->assertEquals($expectedCalls, $calls);
     }

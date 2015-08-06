@@ -30,12 +30,12 @@ class DependencyInjectionExtension implements SearchExtensionInterface
     /**
      * @var string[]
      */
-    private $types = array();
+    private $types = [];
 
     /**
      * @var array[]
      */
-    private $typeExtensions = array();
+    private $typeExtensions = [];
 
     /**
      * Constructor.
@@ -92,7 +92,7 @@ class DependencyInjectionExtension implements SearchExtensionInterface
      */
     public function getTypeExtensions($name)
     {
-        $extensions = array();
+        $extensions = [];
 
         if (isset($this->typeExtensions[$name])) {
             foreach ($this->typeExtensions[$name] as $serviceId) {

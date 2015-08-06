@@ -48,9 +48,9 @@ class InputFactory
      *
      * @param string $name
      *
-     * @return InputProcessorInterface
-     *
      * @throws \InvalidArgumentException when there is no input processor with the given name.
+     *
+     * @return InputProcessorInterface
      */
     public function create($name)
     {
