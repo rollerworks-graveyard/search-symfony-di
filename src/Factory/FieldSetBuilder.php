@@ -88,7 +88,6 @@ class FieldSetBuilder
         $this->fields[$field] = [
             'type' => $type,
             'options' => $options,
-            'required' => $required,
             'class' => $modelClass,
             'property' => $property,
         ];
@@ -179,7 +178,6 @@ class FieldSetBuilder
             $this->fields[$field->fieldName] = [
                 'type' => $field->type,
                 'options' => $field->options,
-                'required' => $field->required,
                 'class' => $field->class,
                 'property' => $field->property,
             ];
@@ -203,7 +201,7 @@ class FieldSetBuilder
                 $field['type'],
                 $field['class'],
                 $field['property'],
-                $field['required'],
+                false,
                 $field['options']
             );
         }

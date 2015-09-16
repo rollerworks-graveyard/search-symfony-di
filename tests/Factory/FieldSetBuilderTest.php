@@ -52,7 +52,6 @@ class FieldSetBuilderTest extends \PHPUnit_Framework_TestCase
             [
                 'type' => 'integer',
                 'options' => [],
-                'required' => true,
                 'class' => 'stdClass',
                 'property' => 'id',
             ],

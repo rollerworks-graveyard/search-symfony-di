@@ -69,7 +69,7 @@ class FieldSet
             'type' => $type,
             'model_class' => $modelClass,
             'model_property' => $modelProperty,
-            'required' => $required,
+            'required' => false,
             'options' => $options,
         ];
 
