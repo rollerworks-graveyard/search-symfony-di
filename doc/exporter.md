@@ -18,7 +18,7 @@ $container
         'rollerworks_search.exporter.filter_query',
         'Rollerworks\Component\Search\Exporter\FilterQueryExporter'
     )
-    ->addTag('rollerworks_search.exporter', array('alias' => 'filter_query'));
+    ->addTag('rollerworks_search.exporter', ['alias' => 'filter_query']);
 ```
 
 **Caution:** To ensure a new exporter is returned every time, the services

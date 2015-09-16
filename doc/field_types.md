@@ -9,7 +9,7 @@ with "alias" as additional parameter.
 ```php
 $container
     ->register('rollerworks_search.type.date', 'Rollerworks\Component\Search\Type\DateType')
-    ->addTag('rollerworks_search.type', array('alias' => 'date'));
+    ->addTag('rollerworks_search.type', ['alias' => 'date']);
 ```
 
 ## Field type extensions
@@ -23,7 +23,7 @@ Alias defines on which the field-type the extension is applied.
 // First register the type. only for explicitness, type can also be registered later
 $container
     ->register('rollerworks_search.type.date', 'Rollerworks\Component\Search\Type\DateType')
-    ->addTag('rollerworks_search.type', array('alias' => 'date'));
+    ->addTag('rollerworks_search.type', ['alias' => 'date']);
 
 // Now register the type-extension
 $container
@@ -31,7 +31,7 @@ $container
         'rollerworks_search.type_extension.date_microtime',
         'Rollerworks\Component\Search\Type\DateMicrotimeExtension'
     )
-    ->addTag('rollerworks_search.type_extension', array('alias' => 'date'));
+    ->addTag('rollerworks_search.type_extension', ['alias' => 'date']);
 ```
 
 ## Loading bundled types and extensions

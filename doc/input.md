@@ -15,7 +15,7 @@ $container
         'rollerworks_search.input_processor.filter_query',
         'Rollerworks\Component\Search\Input\FilterQuery'
     )
-    ->addTag('rollerworks_search.input_processor', array('alias' => 'filter_query'));
+    ->addTag('rollerworks_search.input_processor', []'alias' => 'filter_query']);
 ```
 
 **Note:** input processors are reusable, the factory is only to help with

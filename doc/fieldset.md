@@ -37,7 +37,7 @@ $fieldSetFactory = new FieldSetFactory($container);
 
 $fieldSet = new FieldSet('acme_users');
 
-// set($name, $type = null, $modelClass = null, $modelProperty = null, $required = false, array $options = array())
+// set($name, $type = null, $modelClass = null, $modelProperty = null, $required = false, array $options = [])
 $fieldSet->set('id', 'integer');
 
 $fieldSetFactory->register($fieldSet);
