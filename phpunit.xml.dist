@@ -31,7 +31,6 @@
                 <directory>./tests/</directory>
                 <directory>./Resources/</directory>
                 <directory>./doc/</directory>
-                <directory>./bin/</directory>
             </exclude>
         </whitelist>
     </filter>

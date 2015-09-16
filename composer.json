@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=5.4",
-        "rollerworks/search": ">1.0.0-beta4@dev",
+        "rollerworks/search": "^1.0.0",
         "symfony/dependency-injection": "~2.3",
         "symfony/config": "~2.3"
     },
@@ -34,9 +34,6 @@
         "psr-4": {
             "Rollerworks\\Component\\Search\\Tests\\Extension\\Symfony\\DependencyInjection\\": "tests/"
         }
-    },
-    "config": {
-        "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {

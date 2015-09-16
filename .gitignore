@@ -2,4 +2,3 @@
 /composer.lock
 /*.phar
 /vendor/
-/bin/
