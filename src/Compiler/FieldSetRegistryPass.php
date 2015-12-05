@@ -30,13 +30,14 @@ class FieldSetRegistryPass implements CompilerPassInterface
             return;
         }
 
-        $fieldsets = [];
+        $fieldSets = [];
+
         foreach ($container->findTaggedServiceIds('rollerworks_search.fieldset') as $serviceId => $tag) {
             $name = isset($tag[0]['name']) ? $tag[0]['name'] : $serviceId;
-            $fieldsets[$name] = $serviceId;
+            $fieldSets[$name] = $serviceId;
         }
 
         $definition = $container->getDefinition('rollerworks_search.fieldset_registry');
-        $definition->replaceArgument(1, $fieldsets);
+        $definition->replaceArgument(1, $fieldSets);
     }
 }
