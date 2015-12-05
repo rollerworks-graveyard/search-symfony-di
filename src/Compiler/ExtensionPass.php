@@ -49,7 +49,7 @@ class ExtensionPass implements CompilerPassInterface
         $definition = $container->getDefinition('rollerworks_search.registry');
         $extensions = $definition->getArgument(0);
 
-        foreach (array_keys($container->findTaggedServiceIds('rollerworks_search.extension')) as $serviceId) {
+        foreach ($container->findTaggedServiceIds('rollerworks_search.extension') as $serviceId => $def) {
             $extensions[] = new Reference($serviceId);
         }
 
@@ -62,7 +62,6 @@ class ExtensionPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('rollerworks_search.type') as $serviceId => $tag) {
             $alias = isset($tag[0]['alias']) ? $tag[0]['alias'] : $serviceId;
-            // Flip, because we want tag aliases (= type identifiers) as keys
             $types[$alias] = $serviceId;
         }
 
@@ -74,10 +73,7 @@ class ExtensionPass implements CompilerPassInterface
         $typeExtensions = [];
 
         foreach ($container->findTaggedServiceIds('rollerworks_search.type_extension') as $serviceId => $tag) {
-            $alias = isset($tag[0]['alias'])
-                ? $tag[0]['alias']
-                : $serviceId;
-
+            $alias = isset($tag[0]['alias']) ? $tag[0]['alias'] : $serviceId;
             $typeExtensions[$alias][] = $serviceId;
         }
 

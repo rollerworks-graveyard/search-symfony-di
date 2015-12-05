@@ -32,8 +32,6 @@ class ExporterPass implements CompilerPassInterface
 
         $exporters = [];
         foreach ($container->findTaggedServiceIds('rollerworks_search.exporter') as $serviceId => $tag) {
-            $container->findDefinition($serviceId)->setScope('prototype');
-
             $alias = isset($tag[0]['alias']) ? $tag[0]['alias'] : $serviceId;
             $exporters[$alias] = $serviceId;
         }

@@ -33,8 +33,6 @@ class InputProcessorPass implements CompilerPassInterface
         $inputProcessors = [];
         foreach ($container->findTaggedServiceIds('rollerworks_search.input_processor') as $serviceId => $tag) {
             $alias = isset($tag[0]['alias']) ? $tag[0]['alias'] : $serviceId;
-
-            $container->findDefinition($serviceId)->setScope('prototype');
             $inputProcessors[$alias] = $serviceId;
         }
 
